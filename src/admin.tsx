@@ -1,4 +1,4 @@
-import Sidenav from "./Components/sidenav"
+import Sidenav from "./Components/admin/sidenav"
 
 export const Admin = () =>{
     return (<div>
