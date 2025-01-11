@@ -22,7 +22,7 @@ const Sidenav = () => {
         <div className="h-full p-4">
           <div className='flex flex-row justify-center gap-4 items-center'>
             <img src="https://as1.ftcdn.net/v2/jpg/02/43/12/34/1000_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg" alt="img" className="w-14 h-14 rounded-full"  />
-            <h2 className="sm:text-4xl text-2xl font-bold">Admin</h2>
+            <h1 className="text-3xl">Admin</h1>
           </div>
           <nav className="mt-4 h-full">
             <div className='flex flex-row justify-start items-center'>
