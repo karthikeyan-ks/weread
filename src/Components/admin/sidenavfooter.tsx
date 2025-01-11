@@ -2,7 +2,7 @@ import { CiSettings } from "react-icons/ci"
 import { LuLogOut } from "react-icons/lu"
 
 export const SidenavFooter = () => {
-    return (<footer className="z-50  bg-gray-800 text-white bottom-0 left-0 bg-gray-800 ml-[-7%] mr-[-7%]">
+    return (<footer className="z-50  bg-gray-800 text-white bottom-0 left-0 bg-gray-800 ml-[-7%]">
         <div className="w-100 flex flex-row justify-start gap-4 ml-4"><CiSettings />
             <p>Settings</p>
         </div>
