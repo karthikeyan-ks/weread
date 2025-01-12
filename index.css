@@ -5,14 +5,14 @@
     .scrollbar-thin {
       scrollbar-width: thin;
     }
-    
+  
     .scrollbar-custom {
       scrollbar-width: thin;
       scrollbar-color: #888 #f1f1f1; /* For Firefox */
     }
   
     .scrollbar-custom::-webkit-scrollbar {
-      width: 2px;
+      width: 1px; /* Make the scrollbar thinner */
     }
   
     .scrollbar-custom::-webkit-scrollbar-track {

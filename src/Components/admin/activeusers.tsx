@@ -1,5 +1,3 @@
-import React from 'react';
-
 function ActiveUsers() {
   const users = [
     { id: 1, name: 'John Doe', status: 'Online' },
@@ -12,7 +10,7 @@ function ActiveUsers() {
   ];
 
   return (
-    <div className="max-w-sm mx-auto mt-8 bg-white rounded-lg shadow-lg overflow-y-scroll max-h-[90%] scrollbar-thin">
+    <div className="max-w-sm mx-auto mt-8 bg-white rounded-lg shadow-lg overflow-y-scroll max-h-[90%] scrollbar-custom">
       <div className="px-6 py-4">
         <h2 className="text-xl font-bold mb-4 text-black">Active Users</h2>
         <ul>
