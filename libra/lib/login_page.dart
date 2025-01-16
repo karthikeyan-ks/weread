@@ -6,10 +6,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-        centerTitle: true,
-      ),
+      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -44,14 +41,20 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black, // Button color
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => HomeScreen()),
                 );
               },
-              child: Text('Sign In'),
+              child: Text(
+                'Sign In',
+                style: TextStyle(color: Colors.white), // Text color
+              ),
             ),
             TextButton(
               onPressed: () {
