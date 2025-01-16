@@ -1,7 +1,6 @@
-// TODO Implement this library.
 import 'package:flutter/material.dart';
-import 'login_page.dart';
 import 'dart:async';
+import 'login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

@@ -1,62 +1,66 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart';  // <-- Added this line
+import 'home_screen.dart';
+import 'sign_up_page.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  void _login() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Check for correct email and password
-    if (email == 'admin' && password == 'admin') {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),  // HomeScreen is now recognized
-      );
-    } else {
-      // Show error
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Invalid email or password')),
-      );
-    }
-  }
-
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
+            Icon(
+              Icons.book,
+              size: 100,
+              color: Colors.black,
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Let's Get Started",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
               ),
             ),
             SizedBox(height: 20),
             TextField(
-              controller: _passwordController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Email',
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
               obscureText: true,
               decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 labelText: 'Password',
               ),
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _login,
-              child: Text('Login'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
+              },
+              child: Text('Sign In'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignUpPage()),
+                );
+              },
+              child: Text('Sign Up Here'),
             ),
           ],
         ),
