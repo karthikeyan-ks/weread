@@ -4,15 +4,18 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign Up'),
-        centerTitle: true,
-      ),
+      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            
+            Icon(
+              Icons.book,
+              size: 100,
+              color: Colors.black,
+            ),
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
