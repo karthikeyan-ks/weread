@@ -19,7 +19,7 @@ from django.urls import path
 from api.views import TestAPIView, home
 
 urlpatterns = [
-    path("/",home, name="home"),
+    path("",home, name="home"),
     path('admin/', admin.site.urls),
     path('signup/',TestAPIView.as_view(), name='test-api')
 ]
