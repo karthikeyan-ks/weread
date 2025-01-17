@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   Future<String> fetchData(email, password) async {
-    final url = Uri.parse('http://192.168.1.39:8000/signup/');
+    final url = Uri.parse('https://weread-nine.vercel.app/signup/');
     final Map<String, dynamic> requestBody = {
       'username': email,
       'password': password
@@ -29,10 +29,13 @@ class _LoginPageState extends State<LoginPage> {
       },
       body: jsonBody,
     );
+
+    Map<String, dynamic> userMap = jsonDecode(response.body);
+    User user = User.fromJson(userMap);
+    print(user.message);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(response.body)),
+      SnackBar(content: Text(user.message)),
     );
-    User user = User(response.body);
     if (user.message == "success") {
       Navigator.pushReplacement(
         context,
