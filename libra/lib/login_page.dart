@@ -4,6 +4,7 @@ import 'home_screen.dart'; // <-- Added this line
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Data/userLogin.dart';
+import 'package:logger/logger.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -29,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
       body: jsonBody,
     );
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(response.body)),
-      );
+      SnackBar(content: Text(response.body)),
+    );
     User user = User(response.body);
     if (user.message == "success") {
       Navigator.pushReplacement(
@@ -65,7 +66,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(
+        title: Text('Login'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -86,29 +89,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: 20),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // Button color
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                );
-              },
-              child: Text(
-                'Sign In',
-                style: TextStyle(color: Colors.white), // Text color
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUpPage()),
-                );
-              },
-              child: Text('Sign Up Here'),
+            ElevatedButton(
+              onPressed: _login,
+              child: Text('Login'),
             ),
           ],
         ),
