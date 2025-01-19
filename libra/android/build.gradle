@@ -2,8 +2,10 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        jcenter()  // Optional, some older plugins might still use it
     }
 }
+
 
 rootProject.buildDir = "../build"
 subprojects {
