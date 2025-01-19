@@ -23,7 +23,6 @@ def home(request):
 
 #check authentication of the token
 class ProtectedView(APIView):
-    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         return Response({"message": "You have access to this protected view!"})

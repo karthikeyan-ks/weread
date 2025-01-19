@@ -19,6 +19,29 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   final logger = Logger();
 
+  @override
+  void initState() {
+    super.initState();
+    _checkToken();
+  }
+
+  Future<void> _checkToken() async {
+    final access = await storage.read(key: "access");
+    if (access != null) {
+      final url = Uri.parse('https://weread-nine.vercel.app/protected/');
+      final Map<String, dynamic> requestBody = {'access_token': access};
+      final String jsonBody = json.encode(requestBody);
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonBody,
+      );
+      logger.d(response.body);
+    }
+  }
+
   Future<String> fetchData(email, password) async {
     final url = Uri.parse('https://weread-nine.vercel.app/api/token/');
     final Map<String, dynamic> requestBody = {
@@ -71,22 +94,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _login() async {
     String email = _emailController.text;
     String password = _passwordController.text;
-    final access = await storage.read(key: "access");
-    if (access != null) {
-      final url = Uri.parse('https://weread-nine.vercel.app/protected/');
-      final Map<String, dynamic> requestBody = {'access_token': access};
-      final String jsonBody = json.encode(requestBody);
-      final response = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonBody,
-      );
-      logger.d(response.body);
-    } else {
-      fetchData(email, password);
-    }
+    fetchData(email, password);
   }
 
   @override
