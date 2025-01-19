@@ -9,6 +9,10 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from .serializers import UserRegistrationSerializer
+from .models import Token
+from datetime import timedelta
+from django.utils import timezone
+
 
 #home page for web if there is a request from browser
 def home(request):
@@ -43,6 +47,13 @@ class UserRegistrationView(APIView):
             # Create JWT token for the new user
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
+            token = Token(
+                user=user,
+                refresh_token=str(refresh),
+                access_token=access_token,
+                expires_at=timezone.now() + timedelta(days=36500)  # 3 months from now
+            )
+            token.save()
 
             # Return a success response with the token
             return Response({
@@ -53,3 +64,34 @@ class UserRegistrationView(APIView):
             return Response({
                 "error": serializer.errors
             }, status=status.HTTP_400_BAD_REQUEST)
+
+
+#login to the weread using the refresh token
+class LoginView(APIView):
+    def post(self, request):
+        # Assume you validate the user here (e.g., with a serializer)
+        user = authenticate(request.data.get('username'), request.data.get('password'))
+        if user:
+            # Generate refresh token and access token
+            refresh = RefreshToken.for_user(user)
+            access_token = str(refresh.access_token)
+            refresh_token = str(refresh)
+            
+            return Response({
+                "access_token": access_token,
+                "refresh_token": refresh_token
+            }, status=status.HTTP_200_OK)
+        return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+            
+
+#revoke the token from the database
+class RevokeTokenView(APIView):
+    def post(self, request):
+        token = request.data.get("refresh_token")
+        try:
+            refresh_token = Token.objects.get(token=token, is_active=True)
+            refresh_token.is_active = False
+            refresh_token.save()
+            return Response({"message": "Token revoked successfully"}, status=status.HTTP_200_OK)
+        except RefreshToken.DoesNotExist:
+            return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
