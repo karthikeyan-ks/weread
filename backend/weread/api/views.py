@@ -4,11 +4,17 @@ from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
+from .serializers import UserRegistrationSerializer
 
-
+#home page for web if there is a request from browser
 def home(request):
     return HttpResponse("hai")
 
+#check authentication of the token
 class ProtectedView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -16,6 +22,7 @@ class ProtectedView(APIView):
         return Response({"message": "You have access to this protected view!"})
 
 
+#testing if server work or not 
 class TestAPIView(APIView):
     def post(self, request):
         username = request.data.get('username')
@@ -24,12 +31,8 @@ class TestAPIView(APIView):
         return Response({"message": "success"})
     
 
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.views import APIView
-from .serializers import UserRegistrationSerializer
 
+#signup new user and create a token
 class UserRegistrationView(APIView):
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)

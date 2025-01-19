@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Data/userLogin.dart';
 import 'package:logger/logger.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,14 +15,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  final logger = Logger();
   Future<String> fetchData(email, password) async {
-    final url = Uri.parse('https://weread-nine.vercel.app/signup/');
+    final url = Uri.parse('https://weread-nine.vercel.app/api/token/');
     final Map<String, dynamic> requestBody = {
       'username': email,
       'password': password
     };
     final String jsonBody = json.encode(requestBody);
+    logger.d(jsonBody);
     final response = await http.post(
       url,
       headers: {
@@ -32,11 +34,14 @@ class _LoginPageState extends State<LoginPage> {
 
     Map<String, dynamic> userMap = jsonDecode(response.body);
     User user = User.fromJson(userMap);
-    print(user.message);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(user.message)),
-    );
-    if (user.message == "success") {
+    final storage = FlutterSecureStorage();
+    logger.d(user.access + user.refresh);
+    await storage.write(key: 'access', value: user.access);
+    await storage.write(key: 'refresh', value: user.refresh);
+    if (user.access != "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Login successfull")),
+      );
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
