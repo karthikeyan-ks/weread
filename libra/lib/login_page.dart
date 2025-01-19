@@ -12,10 +12,13 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
+final storage = FlutterSecureStorage();
+
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final logger = Logger();
+
   Future<String> fetchData(email, password) async {
     final url = Uri.parse('https://weread-nine.vercel.app/api/token/');
     final Map<String, dynamic> requestBody = {
@@ -34,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
 
     Map<String, dynamic> userMap = jsonDecode(response.body);
     User user = User.fromJson(userMap);
-    final storage = FlutterSecureStorage();
+
     logger.d(user.access + user.refresh);
     await storage.write(key: 'access', value: user.access);
     await storage.write(key: 'refresh', value: user.refresh);
@@ -65,10 +68,25 @@ class _LoginPageState extends State<LoginPage> {
     return response.body;
   }
 
-  void _login() {
+  Future<void> _login() async {
     String email = _emailController.text;
     String password = _passwordController.text;
-    Future<String> response = fetchData(email, password);
+    final access = await storage.read(key: "access");
+    if (access != null) {
+      final url = Uri.parse('https://weread-nine.vercel.app/protected/');
+      final Map<String, dynamic> requestBody = {'access_token': access};
+      final String jsonBody = json.encode(requestBody);
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonBody,
+      );
+      logger.d(response.body);
+    } else {
+      fetchData(email, password);
+    }
   }
 
   @override

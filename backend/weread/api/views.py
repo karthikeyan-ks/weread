@@ -12,6 +12,9 @@ from .serializers import UserRegistrationSerializer
 from .models import Token
 from datetime import timedelta
 from django.utils import timezone
+from django.contrib.auth import authenticate    
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 
 #home page for web if there is a request from browser
@@ -24,6 +27,22 @@ class ProtectedView(APIView):
 
     def get(self, request):
         return Response({"message": "You have access to this protected view!"})
+    
+    def post(self, request):
+        access_token = request.data.get("access_token")
+        
+        if not access_token:
+            return Response({"error": "Access token is required."}, status=400)
+        
+        try:
+            # Validate the token
+            refresh = RefreshToken(access_token)
+            if refresh.is_expired():
+                return Response({"error": "Token has expired."}, status=401)
+            # If the token is valid, it will not raise an error
+            return Response({"message": "Token is valid."}, status=200)
+        except Exception as e:
+            return Response({"error": "Invalid or expired token."}, status=401)
 
 
 #testing if server work or not 
@@ -73,14 +92,14 @@ class LoginView(APIView):
         user = authenticate(request.data.get('username'), request.data.get('password'))
         if user:
             # Generate refresh token and access token
-            refresh = RefreshToken.for_user(user)
-            access_token = str(refresh.access_token)
-            refresh_token = str(refresh)
-            
-            return Response({
-                "access_token": access_token,
-                "refresh_token": refresh_token
-            }, status=status.HTTP_200_OK)
+            refresh = Token.objects.filter(user=user).first()
+            if refresh:
+                access_token = str(refresh.access_token)
+                refresh_token = str(refresh)
+                return Response({
+                    "access_token": access_token,
+                    "refresh_token": refresh_token
+                }, status=status.HTTP_200_OK)
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
             
 

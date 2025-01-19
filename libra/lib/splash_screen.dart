@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:libra/sign_up_page.dart';
 import 'dart:async';
 import 'login_page.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:logger/logger.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
+final logger = Logger();
+
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
-      );
-    });
+    _checkAccessToken(); // Call the async method without await
+  }
+
+  // Asynchronous function to handle token check
+  Future<void> _checkAccessToken() async {
+    final storage = FlutterSecureStorage();
+    final access = await storage.read(key: 'access');
+    if (access == null) {
+      Timer(Duration(seconds: 2), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => SignUpPage()),
+        );
+      });
+    } else {
+      Timer(Duration(seconds: 2), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
+      });
+    }
   }
 
   @override
