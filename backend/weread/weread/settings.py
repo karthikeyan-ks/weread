@@ -30,7 +30,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.1.39',
     '8745-103-184-239-42.ngrok-free.app',  # Add your ngrok URL here
-    '.vercel.app'
+    '.vercel.app',
+    '*.onrender.com'
 ]
 
 
