@@ -132,7 +132,7 @@ AUTH_USER_MODEL = 'api.CustomUser'
 CSRF_TRUSTED_ORIGINS = [
     'https://weread-z86m.onrender.com',  # Add your domain here
 ]
-
+CSRF_COOKIE_SECURE = True 
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
