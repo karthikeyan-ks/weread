@@ -14,6 +14,7 @@ from datetime import timedelta
 from django.utils import timezone
 from django.contrib.auth import authenticate    
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import AllowAny
 
 
 
@@ -56,6 +57,7 @@ class TestAPIView(APIView):
 
 #signup new user and create a token
 class UserRegistrationView(APIView):
+    permission_classes = [AllowAny]
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
@@ -67,8 +69,7 @@ class UserRegistrationView(APIView):
             access_token = str(refresh.access_token)
             token = Token(
                 user=user,
-                refresh_token=str(refresh),
-                access_token=access_token,
+                token=str(refresh),
                 expires_at=timezone.now() + timedelta(days=36500)  # 3 months from now
             )
             token.save()

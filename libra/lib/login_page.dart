@@ -22,24 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _checkToken();
-  }
-
-  Future<void> _checkToken() async {
-    final access = await storage.read(key: "access");
-    if (access != null) {
-      final url = Uri.parse('https://weread-nine.vercel.app/protected/');
-      final Map<String, dynamic> requestBody = {'access_token': access};
-      final String jsonBody = json.encode(requestBody);
-      final response = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonBody,
-      );
-      logger.d(response.body);
-    }
   }
 
   Future<String> fetchData(email, password) async {
