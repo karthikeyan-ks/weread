@@ -108,18 +108,10 @@ SOCIALACCOUNT_PROVIDER = {
     }
 }
 WSGI_APPLICATION = 'weread.wsgi.application'
-import os
-import pymysql
-pymysql.install_as_MySQLdb()
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'defaultdb',
-        'USER': 'avnadmin',
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': 'weread-karthikeyanks3673-21d4.k.aivencloud.com',
-        'PORT': '12911',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
