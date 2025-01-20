@@ -112,22 +112,19 @@ WSGI_APPLICATION = 'weread.wsgi.application'
 import pymysql
 pymysql.install_as_MySQLdb()
 import os
+import os
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # MySQL backend
-        'NAME': 'defaultdb',                   # Database name
-        'USER': 'avnadmin',                    # MySQL username
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),  # MySQL password
-        'HOST': 'weread-karthikeyanks3673-21d4.k.aivencloud.com',  # MySQL host
-        'PORT': '12911',                       # MySQL port
-        'OPTIONS': {
-            'ssl': {
-                'ca': 'ca.pem',   # Path to the CA certificate
-            },
-        },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '5432'),  # Default PostgreSQL port
     }
 }
+
 
 
 # settings.py
