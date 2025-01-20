@@ -108,7 +108,7 @@ SOCIALACCOUNT_PROVIDER = {
     }
 }
 WSGI_APPLICATION = 'weread.wsgi.application'
-
+import os
 import pymysql
 pymysql.install_as_MySQLdb()
 

@@ -1,3 +1,0 @@
-# Add this to .gitignore to ignore compiled Python files
-*.pyc
-__pycache__/
