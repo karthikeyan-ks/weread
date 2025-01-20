@@ -11,10 +11,6 @@
       "src": "/weread/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb" }
-    },
-    {
-      "src": "Dockerfile",
-      "use": "@vercel/docker"
     }
   ],
   "routes": [
