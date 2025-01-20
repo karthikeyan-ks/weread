@@ -109,12 +109,26 @@ SOCIALACCOUNT_PROVIDER = {
     }
 }
 WSGI_APPLICATION = 'weread.wsgi.application'
+import pymysql
+pymysql.install_as_MySQLdb()
+import os
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # MySQL backend
+        'NAME': 'defaultdb',                   # Database name
+        'USER': 'avnadmin',                    # MySQL username
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),  # MySQL password
+        'HOST': 'weread-karthikeyanks3673-21d4.k.aivencloud.com',  # MySQL host
+        'PORT': '12911',                       # MySQL port
+        'OPTIONS': {
+            'ssl': {
+                'ca': 'ca.pem',   # Path to the CA certificate
+            },
+        },
     }
 }
+
 
 # settings.py
 REST_FRAMEWORK = {
@@ -132,7 +146,7 @@ AUTH_USER_MODEL = 'api.CustomUser'
 CSRF_TRUSTED_ORIGINS = [
     'https://weread-z86m.onrender.com',  # Add your domain here
 ]
-
+CSRF_COOKIE_SECURE = True 
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
