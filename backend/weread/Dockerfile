@@ -1,18 +1,23 @@
-# Use a Python-based image as the base
 FROM python:3.12-slim
 
-# Install MySQL development libraries
-RUN apt-get update && apt-get install -y libmysqlclient-dev
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    default-libmysqlclient-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set up your working directory
+# Set up the working directory
 WORKDIR /app
 
-# Copy your project files
-COPY . .
+# Copy requirements file and install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install the required Python dependencies
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Copy the rest of the application
+COPY . /app/
 
-# Specify the default command to run your app
-CMD ["python", "app.py"]
+# Set the environment variable for Vercel
+ENV VERCEL=1
+
+CMD ["python", "manage.py", "runserver"]
