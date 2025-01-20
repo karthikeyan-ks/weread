@@ -14,7 +14,7 @@ final TextEditingController _usernameController = TextEditingController();
 
 class SignUpPage extends StatelessWidget {
   Future<void> _signup() async {
-    final url = Uri.parse('http://127.0.0.1:8000/register/');
+    final url = Uri.parse('https://weread-nine.vercel.app/register/');
     final Map<String, dynamic> requestBody = {
       'username': _usernameController.text,
       'password': _passwordController.text,

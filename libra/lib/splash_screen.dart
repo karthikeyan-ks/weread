@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     logger.d(access);
     if (access != null) {
-      final url = Uri.parse('http://127.0.0.1:8000/signup/');
+      final url = Uri.parse('https://weread-nine.vercel.app/signup/');
       final Map<String, dynamic> requestBody = {'access_token': access};
       final String jsonBody = json.encode(requestBody);
       final response = await http.post(
