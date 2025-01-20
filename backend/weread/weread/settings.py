@@ -129,6 +129,10 @@ REST_FRAMEWORK = {
 # In settings.py
 AUTH_USER_MODEL = 'api.CustomUser'
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://weread-z86m.onrender.com',  # Add your domain here
+]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
