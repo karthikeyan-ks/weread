@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -162,6 +164,8 @@ void main() {
 
 // Example placeholder pages for navigation
 class BookListPage extends StatelessWidget {
+  const BookListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(child: Text('Book List')));
@@ -169,6 +173,8 @@ class BookListPage extends StatelessWidget {
 }
 
 class FavouriteListPage extends StatelessWidget {
+  const FavouriteListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(child: Text('Favourite List')));
@@ -176,6 +182,8 @@ class FavouriteListPage extends StatelessWidget {
 }
 
 class RentedListPage extends StatelessWidget {
+  const RentedListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(child: Text('Rented List')));
@@ -183,6 +191,8 @@ class RentedListPage extends StatelessWidget {
 }
 
 class NearbyLibraryPage extends StatelessWidget {
+  const NearbyLibraryPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(child: Text('Nearby Libraries')));
@@ -190,6 +200,8 @@ class NearbyLibraryPage extends StatelessWidget {
 }
 
 class MatchPeoplePage extends StatelessWidget {
+  const MatchPeoplePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(child: Text('People with Similar Interests')));
@@ -197,6 +209,8 @@ class MatchPeoplePage extends StatelessWidget {
 }
 
 class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(child: Text('Settings')));

@@ -10,6 +10,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -88,6 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -282,7 +288,7 @@ class BookCard extends StatelessWidget {
   final String name;
   final String author;
 
-  BookCard({required this.imageUrl, required this.name, required this.author});
+  const BookCard({super.key, required this.imageUrl, required this.name, required this.author});
 
   @override
   Widget build(BuildContext context) {
@@ -340,7 +346,7 @@ class BookCard extends StatelessWidget {
 class CategoryCard extends StatelessWidget {
   final String name;
 
-  CategoryCard({required this.name});
+  const CategoryCard({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {

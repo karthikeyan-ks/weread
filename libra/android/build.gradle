@@ -1,11 +1,19 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1'  // Updated AGP version
+    }
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()  // Optional, some older plugins might still use it
     }
 }
-
 
 rootProject.buildDir = "../build"
 subprojects {

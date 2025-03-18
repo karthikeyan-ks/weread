@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:libra/sign_up_page.dart';
 import 'dart:async';
-import 'login_page.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Data/userLogin.dart';
 import 'home_screen.dart';
+import 'Data/global.dart';
+
+final uri = GlobalState.instance.uri;
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -33,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     logger.d(access);
     if (access != null) {
-      final url = Uri.parse('https://weread-nine.vercel.app/signup/');
+      final url = Uri.parse('$uri/signup/');
       final Map<String, dynamic> requestBody = {'access_token': access};
       final String jsonBody = json.encode(requestBody);
       final response = await http.post(

@@ -4,22 +4,25 @@ import 'dart:convert';
 import 'Data/userLogin.dart';
 import 'package:logger/logger.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'Data/userLogin.dart';
+import 'Data/global.dart';
 
 final storage = FlutterSecureStorage();
 final logger = Logger();
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
 final TextEditingController _usernameController = TextEditingController();
+final uri = GlobalState.instance.uri;
 
 class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
+
   Future<void> _signup() async {
-    final url = Uri.parse('https://weread-nine.vercel.app/register/');
     final Map<String, dynamic> requestBody = {
       'username': _usernameController.text,
       'password': _passwordController.text,
       'email': _emailController.text
     };
+    final url = Uri.parse("$uri/register/");
     final String jsonBody = json.encode(requestBody);
     final response = await http.post(
       url,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'book_detail_page.dart';
 
 class BooklistPage extends StatelessWidget {
+  const BooklistPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Dummy book data for demonstration

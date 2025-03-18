@@ -6,8 +6,13 @@ import 'dart:convert';
 import 'Data/userLogin.dart';
 import 'package:logger/logger.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'Data/global.dart';
+
+final uri = GlobalState.instance.uri;
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -25,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<String> fetchData(email, password) async {
-    final url = Uri.parse('https://weread-nine.vercel.app/api/token/');
+    final url = Uri.parse("$uri/login/");
     final Map<String, dynamic> requestBody = {
       'username': email,
       'password': password
